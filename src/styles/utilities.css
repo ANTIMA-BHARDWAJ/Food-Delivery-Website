@@ -1,0 +1,206 @@
+/**
+ * Utility CSS Classes
+ * 
+ * Additional utility classes to enhance the Food Delivery Website UI
+ * These complement Tailwind CSS with custom animations and effects
+ */
+
+/* Custom Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes bounce {
+  0%, 20%, 53%, 80%, 100% {
+    transform: translate3d(0, 0, 0);
+  }
+  40%, 43% {
+    transform: translate3d(0, -10px, 0);
+  }
+  70% {
+    transform: translate3d(0, -5px, 0);
+  }
+  90% {
+    transform: translate3d(0, -2px, 0);
+  }
+}
+
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(74, 222, 128, 0.7);
+  }
+  70% {
+    box-shadow: 0 0 0 10px rgba(74, 222, 128, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(74, 222, 128, 0);
+  }
+}
+
+/* Animation Classes */
+.animate-fade-in {
+  animation: fadeIn 0.6s ease-out;
+}
+
+.animate-slide-in {
+  animation: slideIn 0.5s ease-out;
+}
+
+.animate-bounce-soft {
+  animation: bounce 2s infinite;
+}
+
+.animate-pulse-ring {
+  animation: pulse 2s infinite;
+}
+
+/* Card Hover Effects */
+.card-hover {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.card-hover:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+}
+
+/* Button Effects */
+.btn-primary {
+  @apply bg-green-400 text-white font-semibold py-3 px-6 rounded-lg;
+  @apply hover:bg-green-500 focus:bg-green-500 focus:outline-none focus:ring-2 focus:ring-green-300;
+  @apply transition-all duration-200 active:scale-95;
+  background: linear-gradient(135deg, #4ade80 0%, #22c55e 100%);
+}
+
+.btn-primary:hover {
+  background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%);
+  box-shadow: 0 10px 20px -10px rgba(34, 197, 94, 0.5);
+}
+
+/* Food Type Indicators */
+.food-type-veg {
+  @apply text-green-500 bg-green-50;
+  position: relative;
+}
+
+.food-type-veg::before {
+  content: '';
+  position: absolute;
+  left: -8px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 4px;
+  height: 4px;
+  background: #22c55e;
+  border-radius: 50%;
+}
+
+.food-type-non-veg {
+  @apply text-red-500 bg-red-50;
+  position: relative;
+}
+
+.food-type-non-veg::before {
+  content: '';
+  position: absolute;
+  left: -8px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 4px;
+  height: 4px;
+  background: #ef4444;
+  border-radius: 50%;
+}
+
+/* Search Input Enhancement */
+.search-input {
+  background: linear-gradient(145deg, #ffffff 0%, #f8fafc 100%);
+  transition: all 0.3s ease;
+}
+
+.search-input:focus {
+  background: #ffffff;
+  box-shadow: 0 0 0 3px rgba(74, 222, 128, 0.1), 0 10px 20px -5px rgba(0, 0, 0, 0.1);
+}
+
+/* Category Card Enhancement */
+.category-card {
+  background: linear-gradient(145deg, #ffffff 0%, #f8fafc 100%);
+  border: 1px solid rgba(74, 222, 128, 0.1);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.category-card:hover {
+  background: linear-gradient(145deg, #dcfce7 0%, #bbf7d0 100%);
+  border-color: rgba(74, 222, 128, 0.3);
+  transform: translateY(-5px) scale(1.02);
+}
+
+/* Loading States */
+.skeleton {
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: loading 1.5s infinite;
+}
+
+@keyframes loading {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+/* Responsive Text */
+.responsive-text {
+  font-size: clamp(1rem, 2.5vw, 1.25rem);
+}
+
+.responsive-heading {
+  font-size: clamp(1.5rem, 4vw, 2.5rem);
+}
+
+/* Glassmorphism Effects */
+.glass {
+  background: rgba(255, 255, 255, 0.25);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+/* Custom Scrollbar for containers */
+.custom-scroll::-webkit-scrollbar {
+  width: 4px;
+  height: 4px;
+}
+
+.custom-scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.custom-scroll::-webkit-scrollbar-thumb {
+  background: rgba(74, 222, 128, 0.3);
+  border-radius: 2px;
+}
+
+.custom-scroll::-webkit-scrollbar-thumb:hover {
+  background: rgba(74, 222, 128, 0.5);
+} 
