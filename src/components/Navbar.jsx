@@ -16,96 +16,43 @@
  * @version 1.0.0
  */
 
-import React, { useState } from 'react'
+import React, { useContext,useEffect } from 'react'
 import { MdFastfood } from "react-icons/md";
 import { IoSearch } from "react-icons/io5";
-import { FaShoppingCart } from "react-icons/fa";
+import { FaShopify } from "react-icons/fa";
+import { dataContext } from '../context/userContext';
+import { food_items } from '../Pages/food';
+import { useSelector } from 'react-redux';
 
-/**
- * Navbar Component - Top navigation bar
- * @returns {JSX.Element} The rendered navigation bar
- */
+
 function Navbar() {
-  const [searchQuery, setSearchQuery] = useState('');
-  const [cartCount] = useState(0); // TODO: Connect to cart state management
+  let { input, setInput, cate, setCate, showCart, setShowCart } = useContext(dataContext);
 
-  /**
-   * Handle search form submission
-   * @param {Event} e - Form submission event
-   */
-  const handleSearch = (e) => {
-    e.preventDefault();
-    if (searchQuery.trim()) {
-      // TODO: Implement search functionality
-      console.log('Searching for:', searchQuery);
-    }
-  };
 
-  /**
-   * Handle search input change
-   * @param {Event} e - Input change event
-   */
-  const handleSearchChange = (e) => {
-    setSearchQuery(e.target.value);
-  };
+  useEffect(() => { 
+    let newlist= food_items.filter((item)=> item.food_name.toLowerCase().includes(input.toLowerCase()));
+    setCate(newlist)
+  },[input,setCate])
 
+  let items = useSelector(state => state.cart);
+  console.log(items)
   return (
-    <nav className='w-full h-[100px] flex justify-between items-center px-5 md:px-8 bg-gradient-to-r from-slate-100 to-slate-200 animate-slide-in'>
-      {/* Brand Logo */}
-      <div 
-        className='w-[60px] h-[60px] bg-white flex justify-center items-center rounded-md shadow-xl hover:shadow-2xl transition-all duration-300 cursor-pointer animate-pulse-ring'
-        role="button"
-        tabIndex={0}
-        aria-label="Food Delivery Home"
-      >
-        <MdFastfood className='w-[30px] h-[30px] text-green-400 animate-bounce-soft' />
+    <div className='w-full h-[100px] bg-slate-200 flex justify-between items-center px-8'>
+      <div className='w-[60px] h-[60px] bg-white flex justify-center items-center rounded-md shadow-xl'>
+      <MdFastfood  className='w-[60px] h-[30px] text-green-500'/>
       </div>
-
-      {/* Search Bar */}
-      <form 
-        className='w-[45%] h-[60px] flex items-center px-5 gap-3 rounded-md shadow-md md:w-[70%] search-input'
-        onSubmit={handleSearch}
-      >
-        <IoSearch className='text-green-400 w-[20px] h-[20px] flex-shrink-0' />
-        <input 
-          type="text" 
-          placeholder='Search for delicious food...' 
-          className='w-full outline-none text-[16px] md:text-[18px] text-gray-700 placeholder-gray-400 bg-transparent'
-          value={searchQuery}
-          onChange={handleSearchChange}
-          aria-label="Search for food items"
-        />
-        {searchQuery && (
-          <button
-            type="button"
-            onClick={() => setSearchQuery('')}
-            className="text-gray-400 hover:text-gray-600 text-lg transition-colors duration-200"
-            aria-label="Clear search"
-          >
-            ×
-          </button>
-        )}
+      <form  className='w-[45%] h-[60%] bg-white flex items-center px-5 gap-5 rounded-md shadow-md md:w-[70%]'>
+      <IoSearch  className='text-green-500 w-[20px] h-[20px]' />
+      <input type="text" placeholder='search here...' 
+      className='w-[100%] outline-none text-[16px] md:text-[20px]'
+      onChange={(e)=>setInput (e.target.value)} value={input}/>
       </form>
-
-      {/* Shopping Cart */}
-      <div 
-        className='w-[60px] h-[60px] bg-white flex justify-center items-center rounded-md shadow-xl relative card-hover cursor-pointer'
-        role="button"
-        tabIndex={0}
-        aria-label={`Shopping cart with ${cartCount} items`}
-        onKeyDown={(e) => e.key === 'Enter' && console.log('Open cart')}
-      >
-        {/* Cart Counter Badge */}
-        <span 
-          className={`absolute -top-1 -right-1 w-6 h-6 bg-gradient-to-r from-green-400 to-green-500 text-white font-bold text-[12px] rounded-full flex items-center justify-center ${
-            cartCount > 0 ? 'scale-100 animate-bounce-soft' : 'scale-0'
-          } transition-transform duration-200`}
-        >
-          {cartCount > 99 ? '99+' : cartCount}
-        </span>
-        <FaShoppingCart className='w-[25px] h-[25px] text-green-400' />
+      <div className='w-[60px] h-[60px] bg-white flex justify-center items-center rounded-md shadow-xl relative cursor-pointer' onClick={() => setShowCart(true)}
+>
+        <span className='absolute top-0 right-2 text-green-500 font-bold text-[18px]'>{items.length}</span>
+      <FaShopify className='w-[30px] h-[30px] text-green-500' />
       </div>
-    </nav>
+    </div>
   )
 }
 
