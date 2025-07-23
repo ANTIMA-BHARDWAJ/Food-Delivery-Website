@@ -8,16 +8,15 @@
  * @version 1.0.0
  */
 
-import React from 'react'
-import Home from './pages/Home'
-import './App.css'
+import React from 'react';
+import Home from './Pages/Home';
+import DataProvider from './context/userContext';
 
 function App() {
   return (
-    <div className="app">
+    <DataProvider>
       <Home />
-    </div>
-  )
+    </DataProvider>
+  );
 }
-
 export default App
